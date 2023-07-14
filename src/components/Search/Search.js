@@ -5,7 +5,16 @@ export const Search = ({ placeholder, onChange }) => {
 
   const handleChange = (event) => {
     setValue(event.target.value);
+  };
+
+  const handleBlur = () => {
     onChange(value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      onChange(value);
+    }
   };
 
   return (
@@ -17,6 +26,8 @@ export const Search = ({ placeholder, onChange }) => {
         type="text"
         placeholder={placeholder}
         onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyPress}
       />
     </div>
   );
