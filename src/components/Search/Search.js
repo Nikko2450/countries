@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Search = ({ placeholder, onChange }) => {
   const [value, setValue] = useState("");

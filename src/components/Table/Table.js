@@ -1,41 +1,53 @@
-import { useEffect } from "react";
 import { TableRow } from "./TableRow/TableRow";
+import { SortButtons } from "../SortButtons/SortButtons";
+import { memo, useState } from "react";
+import useDeepCompareEffect from "use-deep-compare-effect";
 
-export const Table = ({ data }) => {
+const Table = ({ data, onSortApply }) => {
+  const handleClick = (column, direction) => {
+    onSortApply({ column, direction });
+  };
+
+  console.log(data);
+
   return (
-    <table>
+    <table className="table">
       <thead>
         <tr className="table__row">
           <th className="table__cell">
             <div className="table__wrapper">
               <span>name</span>
-              <a href="#" className="table__img">
-                <img src="sort.svg" alt="sort" />
-              </a>
+              <SortButtons
+                onClickUp={() => handleClick("name", "up")}
+                onCkickDown={() => handleClick("name", "down")}
+              />
             </div>
           </th>
           <th className="table__cell">
             <div className="table__wrapper">
               <span>capital</span>
-              <a href="#" className="table__img">
-                <img src="sort.svg" alt="sort" />
-              </a>
+              <SortButtons
+                onClickUp={() => handleClick("capital", "up")}
+                onCkickDown={() => handleClick("capital", "down")}
+              />
             </div>
           </th>
           <th className="table__cell">
             <div className="table__wrapper">
               <span>population</span>
-              <a href="#" className="table__img">
-                <img src="sort.svg" alt="sort" />
-              </a>
+              <SortButtons
+                onClickUp={() => handleClick("population", "up")}
+                onCkickDown={() => handleClick("population", "down")}
+              />
             </div>
           </th>
           <th className="table__cell">
             <div className="table__wrapper">
               <span>area</span>
-              <a href="#" className="table__img">
-                <img src="sort.svg" alt="sort" />
-              </a>
+              <SortButtons
+                onClickUp={() => handleClick("area", "up")}
+                onCkickDown={() => handleClick("area", "down")}
+              />
             </div>
           </th>
           <th className="table__cell">continents</th>
@@ -73,3 +85,5 @@ export const Table = ({ data }) => {
     </table>
   );
 };
+
+export const TableMemo = memo(Table);

@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import "./App.sass";
 import { Search } from "./components/Search/Search";
-import { Table } from "./components/Table/Table";
+import { TableMemo } from "./components/Table/Table";
 import { Container } from "./components/Container/Container";
+import "./App.sass";
 
 const url = "https://restcountries.com/v3.1/all";
 
 function App() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [sortedData, setSortedData] = useState([]);
   const [filterList, setFilterList] = useState({
     name: "",
     language: "",
     capital: "",
     continent: "",
   });
+  const [sortVaule, setSortVaule] = useState({ column: "", direction: "" });
   const [error, setError] = useState("");
 
   const handleChange = (value, key) => {
@@ -31,6 +33,7 @@ function App() {
       .then((value) => {
         setData(value);
         setFilteredData(value);
+        setSortedData(value);
       })
       .catch((message) => {
         setError(message);
@@ -62,6 +65,75 @@ function App() {
     );
   }, [filterList]);
 
+  useEffect(() => {
+    setSortedData(
+      filteredData.sort((a, b) => {
+        if (sortVaule.column === "name") {
+          if (sortVaule.direction === "up") {
+            if (a.name.common > b.name.common) {
+              return -1;
+            } else if (a.name.common < b.name.common) {
+              return 1;
+            } else {
+              return 0;
+            }
+          } else if (sortVaule.direction === "down") {
+            if (a.name.common > b.name.common) {
+              return 1;
+            } else if (a.name.common < b.name.common) {
+              return -1;
+            } else {
+              return 0;
+            }
+          }
+        } else if (sortVaule.column === "capital") {
+          if (sortVaule.direction === "up") {
+            if (!a.capital) {
+              return -1;
+            }
+            if (!b.capital) {
+              return 1;
+            }
+            if (a.capital[0] > b.capital[0]) {
+              return -1;
+            } else if (a.capital[0] < b.capital[0]) {
+              return 1;
+            } else {
+              return 0;
+            }
+          } else if (sortVaule.direction === "down") {
+            if (!a.capital) {
+              return 1;
+            }
+            if (!b.capital) {
+              return -1;
+            }
+            if (a.capital[0] > b.capital[0]) {
+              return 1;
+            } else if (a.capital[0] < b.capital[0]) {
+              return -1;
+            } else {
+              return 0;
+            }
+          }
+        } else if (sortVaule.column === "population") {
+          if (sortVaule.direction === "up") {
+            return a.population - b.population;
+          } else if (sortVaule.direction === "down") {
+            return b.population - a.population;
+          }
+        } else if (sortVaule.column === "area") {
+          if (sortVaule.direction === "up") {
+            return a.area - b.area;
+          } else if (sortVaule.direction === "down") {
+            return b.area - a.area;
+          }
+        }
+        return;
+      })
+    );
+  }, [sortVaule, filteredData]);
+
   return (
     <div className="app">
       <Container>
@@ -83,7 +155,10 @@ function App() {
             onChange={(value) => handleChange(value, "continent")}
           />
         </div>
-        <Table data={filteredData} />
+        <TableMemo
+          data={sortedData}
+          onSortApply={(sort) => setSortVaule(sort)}
+        />
       </Container>
     </div>
   );
