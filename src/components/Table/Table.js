@@ -1,14 +1,11 @@
 import { TableRow } from "./TableRow/TableRow";
 import { SortButtons } from "../SortButtons/SortButtons";
-import { memo, useState } from "react";
-import useDeepCompareEffect from "use-deep-compare-effect";
+import { memo } from "react";
 
 const Table = ({ data, onSortApply }) => {
   const handleClick = (column, direction) => {
     onSortApply({ column, direction });
   };
-
-  console.log(data);
 
   return (
     <table className="table">
