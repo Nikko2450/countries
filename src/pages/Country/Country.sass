@@ -1,0 +1,89 @@
+.country
+
+  &__title
+    font-family: Montserrat
+    font-size: 42px
+    font-weight: 700
+    line-height: normal
+    color:$c-black
+    text-align: center
+  
+  &__wrapper
+    margin-top: 25px
+    display: flex
+    justify-content: space-between
+
+  &__images
+    display: grid
+    width: 50%
+    margin-right: 50px
+
+  &__img
+    margin-bottom: 50px
+
+  &__coatofarms
+    margin: 0 auto
+
+  &__info-title
+    font-size: 35px
+    text-align: center
+    margin-bottom: 30px
+    color: $c-royal-blue  
+  
+  &__info
+    width: 50%
+
+  &__list
+    background-color: $c-selago
+    padding: 40px 30px
+    border-radius: 20px
+    border: 1px solid $c-alto
+
+  &__list-wrapper
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-wrap: wrap
+    gap: 10px
+
+    span
+      background-color: $c-ottoman
+      color: $c-eucalyptus
+      
+    &:not(:last-of-type)
+      margin-bottom: 30px
+
+  &__maps
+
+    span
+      text-decoration: underline
+      transition: color .3s ease
+
+      &:hover
+        color: darken($c-ottoman, 45%)
+    
+.paragraph
+  font-family: Montserrat
+  font-size: 28px
+  font-weight: 500
+  line-height: normal
+  color: $c-black
+
+  span
+    padding: 8px 12px
+    border-radius: 22px
+
+.color-green
+  span
+    background-color: $c-ottoman
+    color: $c-eucalyptus
+
+.color-orange
+  span
+    background-color: $c-solitaire
+    color: $c-tenn
+
+.color-red
+  span
+    background-color: $c-carousel-pink
+    color: $c-tamarillo

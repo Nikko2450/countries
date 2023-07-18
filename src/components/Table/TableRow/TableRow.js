@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 export const TableRow = ({
   imgSrc,
   name,
+  fullName,
   currencies,
   population,
   capital,
@@ -16,8 +17,8 @@ export const TableRow = ({
         <div className="table-row__wrapper">
           <img className="table-row__img" src={imgSrc} alt={alt} />
           <Link
-            className="table-row__desc"
-            to={`/country/${name.toLowerCase()}`}
+            className="table-row__desc hover"
+            to={`/country/${fullName.toLowerCase()}`}
           >
             {name}
           </Link>

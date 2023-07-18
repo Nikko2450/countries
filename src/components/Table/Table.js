@@ -58,6 +58,7 @@ const Table = ({ data, onSortApply }) => {
             <TableRow
               key={item.name.common}
               name={item.name.common}
+              fullName={item.name.official}
               imgSrc={item.flags.svg}
               capital={item.capital}
               population={item.population}

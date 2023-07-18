@@ -7,7 +7,7 @@ export const Country = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
 
-  const url = `https://restcountries.com/v3.1/name/${name}`;
+  const url = `https://restcountries.com/v3.1/name/${name}?fullText=true`;
 
   useEffect(() => {
     if (name) {
@@ -31,47 +31,108 @@ export const Country = () => {
       <Container>
         <div className="country">
           <h1 className="country__title">{data.name?.official}</h1>
-          <img
-            className="country__img"
-            src={data.flags.svg}
-            alt={data.name?.official ?? data.flags.alt}
-          />
-          {data.coatOfArms.svg && (
-            <img
-              className="country__img"
-              src={data.coatOfArms.svg}
-              alt="coatOfArms"
-            />
-          )}
-        </div>
-        <div className="country__info">
-          <p className="country__capital">Capital: {data.capital}</p>
-          <p className="country__area">Area: {data.area}</p>
-          <p className="country__continents">Continents: {data.continents}</p>
-          <p className="country__independent">
-            Independent: {data.independent === true ? "Yes" : "No"}
-          </p>
-          <p className="country__landlocked">
-            landlocked: {data.landlocked === true ? "Have" : "Not have"}
-          </p>
-          {data.languages
-            ? Object.values(data.languages).map((value) => {
-                return (
-                  <p key={value} className="country__languages">
-                    {value}
+          <div className="country__wrapper">
+            <div className="country__images">
+              <img
+                className="country__img"
+                src={data.flags.svg}
+                alt={data.name?.official ?? data.flags.alt}
+              />
+              {data.coatOfArms.svg && (
+                <img
+                  className="country__coatofarms"
+                  src={data.coatOfArms.svg}
+                  alt="coatOfArms"
+                />
+              )}
+            </div>
+
+            <div className="country__info">
+              <h2 className="country__info-title">Сountry Information</h2>
+              <ul className="country__list">
+                <li className="country__list-wrapper">
+                  <p className="country__capital paragraph color-green">
+                    Capital: <span>{data.capital}</span>
                   </p>
-                );
-              })
-            : ""}
-          <a
-            className="coutry__maps"
-            href={data.maps ? data.maps.googleMaps : "Not Google Maps"}
-          >
-            Google Maps
-          </a>
-          <p className="coutry__population">Population: {data.population}</p>
-          <p className="coutry__region">Region: {data.region}</p>
-          <p className="coutry__timezones">Timezones: {data.timezones}</p>
+                </li>
+                <li className="country__list-wrapper">
+                  <p className="country__area paragraph color-orange">
+                    Area: <span>{data.area}</span>
+                  </p>
+                </li>
+                <li className="country__list-wrapper">
+                  <p className="country__continents paragraph color-green">
+                    Continents: <span>{data.continents}</span>
+                  </p>
+                </li>
+                <li className="country__list-wrapper">
+                  <p
+                    className={`country__independent paragraph ${
+                      data.independent ? "color-gren" : "color-red"
+                    }`}
+                  >
+                    Independent: <span>{data.independent ? "Yes" : "No"}</span>
+                  </p>
+                </li>
+                <li className="country__list-wrapper">
+                  <p
+                    className={`country__landlocked paragraph ${
+                      data.landlocked ? "color-green" : "color-red"
+                    }`}
+                  >
+                    landlocked:{" "}
+                    <span>{data.landlocked ? "Have" : "Not have"}</span>
+                  </p>
+                </li>
+                {data.languages ? (
+                  <li className="country__list-wrapper paragraph">
+                    Language:{" "}
+                    {Object.values(data.languages).map((value) => {
+                      return (
+                        <span
+                          key={value}
+                          className="country__languages paragraph"
+                        >
+                          {value}
+                        </span>
+                      );
+                    })}
+                  </li>
+                ) : null}
+                <li className="country__list-wrapper">
+                  <a
+                    className="country__maps paragraph color-green"
+                    href={data.maps ? data.maps.googleMaps : "null"}
+                    target="_blank"
+                  >
+                    Map: <span>Google Maps</span>
+                  </a>
+                </li>
+                <li className="country__list-wrapper color-orange">
+                  <p className="country__population paragraph">
+                    Population: <span>{data.population}</span>
+                  </p>
+                </li>
+                <li className="country__list-wrapper color-gren">
+                  <p className="country__region paragraph">
+                    Region: <span>{data.region}</span>
+                  </p>
+                </li>
+                {data.timezones ? (
+                  <li className="country__list-wrapper paragraph color-green">
+                    Timezones:
+                    {Object.values(data.timezones).map((value) => {
+                      return (
+                        <span className="country__timezones paragraph">
+                          {value}
+                        </span>
+                      );
+                    })}
+                  </li>
+                ) : null}
+              </ul>
+            </div>
+          </div>
         </div>
       </Container>
     </div>
